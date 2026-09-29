@@ -1,0 +1,1936 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Rakesh — CSE • AI/ML</title>
+
+    <meta
+      name="description"
+      content="Rakesh — Computer Science student exploring AI, software development, and technology."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* =========================================================
+           ROOT
+        ========================================================= */
+
+      :root {
+        --bg: #070707;
+        --bg-soft: #0d0d0f;
+        --surface: rgba(255, 255, 255, 0.045);
+        --surface-strong: rgba(255, 255, 255, 0.07);
+
+        --text: #f6f6f6;
+        --muted: #98989e;
+        --muted-2: #68686f;
+
+        --line: rgba(255, 255, 255, 0.09);
+
+        --accent: #9b8cff;
+        --accent-2: #5eead4;
+
+        --radius: 24px;
+
+        --container: 1180px;
+      }
+
+      /* =========================================================
+           RESET
+        ========================================================= */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(
+            circle at 15% 10%,
+            rgba(155, 140, 255, 0.08),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 85% 80%,
+            rgba(94, 234, 212, 0.055),
+            transparent 25%
+          ),
+          var(--bg);
+
+        color: var(--text);
+
+        font-family: "Inter", sans-serif;
+
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+      .container {
+        width: min(var(--container), 90%);
+        margin: auto;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        color: var(--muted);
+
+        font-size: 12px;
+        font-weight: 600;
+
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+
+        width: 28px;
+        height: 1px;
+
+        background: linear-gradient(to right, var(--accent), transparent);
+      }
+
+      .section-title {
+        margin-bottom: 55px;
+      }
+
+      .section-title h2 {
+        margin-top: 14px;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: clamp(42px, 6vw, 72px);
+        line-height: 1;
+
+        letter-spacing: -0.05em;
+      }
+
+      .section-title p {
+        margin-top: 18px;
+
+        max-width: 570px;
+
+        color: var(--muted);
+
+        line-height: 1.8;
+      }
+
+      /* =========================================================
+           NOISE
+        ========================================================= */
+
+      body::before {
+        content: "";
+
+        position: fixed;
+        inset: 0;
+
+        pointer-events: none;
+
+        opacity: 0.025;
+
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+
+        z-index: 9999;
+      }
+
+      /* =========================================================
+           CURSOR
+        ========================================================= */
+
+      .cursor {
+        position: fixed;
+
+        width: 10px;
+        height: 10px;
+
+        border-radius: 50%;
+
+        background: white;
+
+        pointer-events: none;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 10000;
+
+        mix-blend-mode: difference;
+      }
+
+      .cursor-ring {
+        position: fixed;
+
+        width: 38px;
+        height: 38px;
+
+        border: 1px solid rgba(255, 255, 255, 0.35);
+
+        border-radius: 50%;
+
+        pointer-events: none;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 9999;
+
+        transition:
+          width 0.2s ease,
+          height 0.2s ease;
+      }
+
+      /* =========================================================
+           NAV
+        ========================================================= */
+
+      nav {
+        position: fixed;
+
+        top: 22px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: min(1080px, 92%);
+
+        padding: 11px 14px 11px 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        background: rgba(10, 10, 11, 0.72);
+
+        border: 1px solid var(--line);
+
+        border-radius: 18px;
+
+        backdrop-filter: blur(18px);
+
+        z-index: 1000;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 30px;
+        height: 30px;
+
+        display: grid;
+        place-items: center;
+
+        border: 1px solid var(--line);
+        border-radius: 9px;
+
+        font-size: 13px;
+      }
+
+      .brand-mark span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+
+        font-size: 13px;
+        font-weight: 500;
+
+        transition: 0.25s ease;
+      }
+
+      .nav-links a:hover {
+        color: white;
+      }
+
+      .nav-contact {
+        padding: 10px 15px;
+
+        border: 1px solid var(--line);
+        border-radius: 12px;
+
+        font-size: 12px !important;
+
+        background: rgba(255, 255, 255, 0.035);
+
+        color: white !important;
+      }
+
+      /* =========================================================
+           HERO
+        ========================================================= */
+
+      #home {
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+
+        position: relative;
+      }
+
+      .hero {
+        padding-top: 120px;
+
+        display: grid;
+
+        grid-template-columns:
+          minmax(0, 1.45fr)
+          minmax(300px, 0.55fr);
+
+        gap: 70px;
+
+        align-items: center;
+      }
+
+      .availability {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+
+        padding: 8px 12px;
+
+        border: 1px solid var(--line);
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.025);
+
+        color: var(--muted);
+
+        font-size: 11px;
+
+        margin-bottom: 25px;
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: #72f1c4;
+
+        box-shadow:
+          0 0 0 5px rgba(114, 241, 196, 0.08),
+          0 0 15px rgba(114, 241, 196, 0.7);
+      }
+
+      .hero h1 {
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: clamp(70px, 10vw, 145px);
+
+        line-height: 0.88;
+
+        letter-spacing: -0.075em;
+
+        max-width: 900px;
+      }
+
+      .hero h1 .ghost {
+        color: transparent;
+
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+      }
+
+      .hero-sub {
+        max-width: 640px;
+
+        margin-top: 30px;
+
+        color: var(--muted);
+
+        font-size: 17px;
+
+        line-height: 1.9;
+      }
+
+      .hero-sub strong {
+        color: #e7e7e7;
+        font-weight: 500;
+      }
+
+      .hero-actions {
+        margin-top: 34px;
+
+        display: flex;
+        gap: 12px;
+
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        padding: 13px 17px;
+
+        border-radius: 13px;
+
+        border: 1px solid var(--line);
+
+        font-size: 13px;
+
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          background 0.25s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+
+        border-color: rgba(155, 140, 255, 0.45);
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          rgba(155, 140, 255, 0.18),
+          rgba(94, 234, 212, 0.09)
+        );
+      }
+
+      .btn-arrow {
+        color: var(--accent-2);
+      }
+
+      /* =========================================================
+           HERO SIDE CARD
+        ========================================================= */
+
+      .hero-card {
+        position: relative;
+
+        padding: 25px;
+
+        min-height: 370px;
+
+        border: 1px solid var(--line);
+
+        border-radius: 28px;
+
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.055),
+          rgba(255, 255, 255, 0.018)
+        );
+
+        backdrop-filter: blur(10px);
+
+        overflow: hidden;
+      }
+
+      .hero-card::before {
+        content: "";
+
+        position: absolute;
+
+        width: 240px;
+        height: 240px;
+
+        top: -100px;
+        right: -80px;
+
+        border-radius: 50%;
+
+        background: radial-gradient(
+          circle,
+          rgba(155, 140, 255, 0.25),
+          transparent 70%
+        );
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+
+        color: var(--muted-2);
+
+        font-size: 11px;
+
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .terminal {
+        position: absolute;
+
+        bottom: 25px;
+        left: 25px;
+        right: 25px;
+
+        padding: 20px;
+
+        border: 1px solid var(--line);
+
+        border-radius: 18px;
+
+        background: #0a0a0c;
+
+        font-family: "SFMono-Regular", Consolas, monospace;
+
+        font-size: 12px;
+
+        line-height: 2;
+
+        color: #a9a9af;
+      }
+
+      .terminal .green {
+        color: var(--accent-2);
+      }
+
+      .terminal .purple {
+        color: var(--accent);
+      }
+
+      .terminal .white {
+        color: white;
+      }
+
+      /* =========================================================
+           MARQUEE
+        ========================================================= */
+
+      .marquee {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+
+        overflow: hidden;
+
+        white-space: nowrap;
+      }
+
+      .marquee-inner {
+        width: max-content;
+
+        padding: 18px 0;
+
+        display: flex;
+        gap: 35px;
+
+        animation: marquee 22s linear infinite;
+      }
+
+      .marquee-item {
+        display: flex;
+        align-items: center;
+        gap: 35px;
+
+        color: var(--muted-2);
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 14px;
+
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .marquee-item::after {
+        content: "✦";
+
+        color: var(--accent);
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+      section:not(#home) {
+        padding: 140px 0;
+      }
+
+      /* =========================================================
+           ABOUT
+        ========================================================= */
+
+      .about-grid {
+        display: grid;
+
+        grid-template-columns:
+          minmax(0, 1.15fr)
+          minmax(260px, 0.85fr);
+
+        gap: 22px;
+      }
+
+      .about-main,
+      .about-side {
+        border: 1px solid var(--line);
+
+        border-radius: var(--radius);
+
+        background: var(--surface);
+
+        padding: 34px;
+      }
+
+      .about-main p {
+        color: var(--muted);
+
+        font-size: 16px;
+
+        line-height: 1.95;
+      }
+
+      .about-main p + p {
+        margin-top: 20px;
+      }
+
+      .quote {
+        margin-top: 35px;
+
+        padding-left: 18px;
+
+        border-left: 2px solid var(--accent);
+
+        color: #d9d9dd;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 21px;
+
+        line-height: 1.5;
+      }
+
+      .about-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .mini-label {
+        color: var(--muted-2);
+
+        font-size: 11px;
+
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .big-number {
+        margin-top: 8px;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 72px;
+
+        letter-spacing: -0.06em;
+      }
+
+      .about-side-text {
+        color: var(--muted);
+
+        line-height: 1.7;
+
+        font-size: 14px;
+      }
+
+      /* =========================================================
+           JOURNEY
+        ========================================================= */
+
+      .journey {
+        position: relative;
+      }
+
+      .journey-line {
+        position: absolute;
+
+        left: 9px;
+        top: 0;
+        bottom: 0;
+
+        width: 1px;
+
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          var(--line) 8%,
+          var(--line) 92%,
+          transparent
+        );
+      }
+
+      .journey-item {
+        position: relative;
+
+        display: grid;
+
+        grid-template-columns: 140px 1fr;
+
+        gap: 40px;
+
+        padding: 0 0 65px 40px;
+      }
+
+      .journey-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .journey-dot {
+        position: absolute;
+
+        left: 3px;
+        top: 4px;
+
+        width: 13px;
+        height: 13px;
+
+        border-radius: 50%;
+
+        background: #111;
+
+        border: 2px solid var(--accent);
+      }
+
+      .journey-year {
+        color: var(--accent-2);
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        letter-spacing: 0.1em;
+      }
+
+      .journey-content h3 {
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 27px;
+
+        margin-bottom: 10px;
+      }
+
+      .journey-content p {
+        max-width: 650px;
+
+        color: var(--muted);
+
+        line-height: 1.85;
+      }
+
+      /* =========================================================
+           SKILLS
+        ========================================================= */
+
+      .skills-layout {
+        display: grid;
+
+        grid-template-columns:
+          0.8fr
+          1.2fr;
+
+        gap: 22px;
+      }
+
+      .skill-intro,
+      .skill-panel {
+        border: 1px solid var(--line);
+
+        border-radius: var(--radius);
+
+        background: var(--surface);
+
+        padding: 34px;
+      }
+
+      .skill-intro h3 {
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 30px;
+
+        line-height: 1.25;
+
+        margin: 22px 0 14px;
+      }
+
+      .skill-intro p {
+        color: var(--muted);
+
+        line-height: 1.8;
+      }
+
+      .skill-list {
+        display: grid;
+        gap: 18px;
+      }
+
+      .skill-row {
+        display: grid;
+
+        grid-template-columns: 140px 1fr 45px;
+
+        gap: 15px;
+
+        align-items: center;
+      }
+
+      .skill-name {
+        color: #ddd;
+
+        font-size: 13px;
+      }
+
+      .skill-track {
+        height: 5px;
+
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.06);
+
+        overflow: hidden;
+      }
+
+      .skill-progress {
+        height: 100%;
+
+        width: 0%;
+
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+
+        border-radius: inherit;
+
+        transition: width 1.2s ease;
+      }
+
+      .skill-percent {
+        color: var(--muted-2);
+
+        font-size: 11px;
+
+        text-align: right;
+      }
+
+      /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+      .projects {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 18px;
+      }
+
+      .project {
+        min-height: 330px;
+
+        padding: 27px;
+
+        border: 1px solid var(--line);
+
+        border-radius: var(--radius);
+
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.018)
+        );
+
+        display: flex;
+
+        flex-direction: column;
+
+        transition:
+          transform 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .project:hover {
+        transform: translateY(-8px);
+
+        border-color: rgba(155, 140, 255, 0.3);
+      }
+
+      .project-number {
+        color: var(--accent);
+
+        font-family: "SFMono-Regular", Consolas, monospace;
+
+        font-size: 11px;
+      }
+
+      .project h3 {
+        margin: 45px 0 12px;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 27px;
+      }
+
+      .project p {
+        color: var(--muted);
+
+        font-size: 14px;
+
+        line-height: 1.8;
+      }
+
+      .project-footer {
+        margin-top: auto;
+
+        padding-top: 25px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .project-tag {
+        color: var(--muted-2);
+
+        font-size: 11px;
+
+        border: 1px solid var(--line);
+
+        padding: 6px 10px;
+
+        border-radius: 999px;
+      }
+
+      .project-link {
+        color: var(--accent-2);
+
+        font-size: 12px;
+      }
+
+      /* =========================================================
+           GITHUB
+        ========================================================= */
+
+      .github-box {
+        margin-top: 20px;
+
+        border: 1px solid var(--line);
+
+        border-radius: var(--radius);
+
+        padding: 25px 28px;
+
+        background: var(--surface);
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 20px;
+      }
+
+      .github-box small {
+        color: var(--muted-2);
+      }
+
+      .github-box h3 {
+        margin-top: 7px;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 20px;
+      }
+
+      .github-btn {
+        padding: 11px 14px;
+
+        border: 1px solid var(--line);
+
+        border-radius: 11px;
+
+        font-size: 12px;
+
+        transition: 0.25s ease;
+      }
+
+      .github-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      /* =========================================================
+           CONTACT
+        ========================================================= */
+
+      #contact {
+        padding-bottom: 95px;
+      }
+
+      .contact-box {
+        padding: 65px 35px;
+
+        text-align: center;
+
+        border: 1px solid var(--line);
+
+        border-radius: 30px;
+
+        background:
+          radial-gradient(
+            circle at 50% 0%,
+            rgba(155, 140, 255, 0.12),
+            transparent 45%
+          ),
+          var(--surface);
+      }
+
+      .contact-box h2 {
+        max-width: 820px;
+
+        margin: 18px auto 0;
+
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: clamp(45px, 7vw, 90px);
+
+        line-height: 0.96;
+
+        letter-spacing: -0.055em;
+      }
+
+      .contact-box p {
+        max-width: 580px;
+
+        margin: 20px auto 30px;
+
+        color: var(--muted);
+
+        line-height: 1.8;
+      }
+
+      .contact-actions {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+      }
+
+      /* =========================================================
+           FOOTER
+        ========================================================= */
+
+      footer {
+        padding: 25px 0 45px;
+
+        border-top: 1px solid var(--line);
+
+        color: var(--muted-2);
+
+        font-size: 11px;
+      }
+
+      .footer-inner {
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 15px;
+      }
+
+      /* =========================================================
+           REVEAL
+        ========================================================= */
+
+      .reveal {
+        opacity: 0;
+
+        transform: translateY(25px);
+
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+
+        transform: translateY(0);
+      }
+
+      /* =========================================================
+           MOBILE
+        ========================================================= */
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-card {
+          min-height: 280px;
+        }
+
+        .about-grid,
+        .skills-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .projects {
+          grid-template-columns: 1fr;
+        }
+
+        .journey-item {
+          grid-template-columns: 1fr;
+
+          gap: 10px;
+        }
+
+        .skill-row {
+          grid-template-columns:
+            100px
+            1fr
+            38px;
+        }
+      }
+
+      @media (max-width: 650px) {
+        nav {
+          padding: 10px 14px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .nav-contact {
+          display: block;
+        }
+
+        .hero {
+          padding-top: 150px;
+        }
+
+        .hero h1 {
+          font-size: 68px;
+        }
+
+        .hero-sub {
+          font-size: 15px;
+        }
+
+        .section-title {
+          margin-bottom: 38px;
+        }
+
+        section:not(#home) {
+          padding: 95px 0;
+        }
+
+        .about-main,
+        .about-side,
+        .skill-intro,
+        .skill-panel {
+          padding: 25px;
+        }
+
+        .skill-row {
+          grid-template-columns:
+            90px
+            1fr
+            35px;
+
+          gap: 10px;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================================
+         CURSOR
+    ========================================================= -->
+
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================= -->
+
+    <nav>
+      <a href="#home" class="brand">
+        <div class="brand-mark">
+          <span>R</span>
+        </div>
+
+        Rakesh
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+
+        <li><a href="#journey">Journey</a></li>
+
+        <li><a href="#skills">Skills</a></li>
+
+        <li><a href="#projects">Projects</a></li>
+
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <a class="nav-contact" href="mailto:rockstar2008309@gmail.com">
+        Let's talk ↗
+      </a>
+    </nav>
+
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
+
+    <main>
+      <section id="home">
+        <div class="container hero">
+          <div class="hero-content">
+            <div class="availability">
+              <span class="status-dot"></span>
+
+              Currently learning • CSE AI/ML
+            </div>
+
+            <div class="eyebrow">Personal Portfolio / 2026</div>
+
+            <h1>
+              Rakesh
+              <br />
+              <span class="ghost"> builds. </span>
+            </h1>
+
+            <p class="hero-sub">
+              I'm a <strong>Computer Science student</strong>
+              exploring Artificial Intelligence, programming and the art of
+              building things from absolutely nothing.
+
+              <br /><br />
+
+              I didn't start with a CS background. I'm learning it step by step
+              —
+              <strong>from the fundamentals to the future.</strong>
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">
+                Explore my work
+
+                <span class="btn-arrow"> ↗ </span>
+              </a>
+
+              <a
+                href="https://github.com/rakexhhh309/portfoilo_rakexh.git"
+                target="_blank"
+                rel="noopener"
+                class="btn"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="card-top">
+              <span>rakesh.dev</span>
+
+              <span>01 / 01</span>
+            </div>
+
+            <div class="terminal">
+              <div>
+                <span class="green">rakesh@portfolio</span>:
+                <span class="purple">~</span>$ whoami
+              </div>
+
+              <div class="white">Rakesh</div>
+
+              <div>
+                <span class="green">rakesh@portfolio</span>:
+                <span class="purple">~</span>$ focus
+              </div>
+
+              <div>CSE / AI / ML / BUILDING</div>
+
+              <div>
+                <span class="green">rakesh@portfolio</span>:
+                <span class="purple">~</span>$ status
+              </div>
+
+              <div class="white">learning_from_zero...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             MARQUEE
+        ====================================================== -->
+
+      <div class="marquee">
+        <div class="marquee-inner">
+          <div class="marquee-item">COMPUTER SCIENCE</div>
+
+          <div class="marquee-item">ARTIFICIAL INTELLIGENCE</div>
+
+          <div class="marquee-item">MACHINE LEARNING</div>
+
+          <div class="marquee-item">SOFTWARE</div>
+
+          <div class="marquee-item">CREATIVITY</div>
+
+          <div class="marquee-item">CURIOSITY</div>
+
+          <div class="marquee-item">COMPUTER SCIENCE</div>
+
+          <div class="marquee-item">ARTIFICIAL INTELLIGENCE</div>
+
+          <div class="marquee-item">MACHINE LEARNING</div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+      <section id="about">
+        <div class="container">
+          <div class="section-title reveal">
+            <div class="eyebrow">01 / About me</div>
+
+            <h2>Still becoming.</h2>
+
+            <p>
+              The interesting part of my journey is that I wasn't always
+              surrounded by code.
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <article class="about-main reveal">
+              <p>
+                My journey into technology started from a place that wasn't
+                traditionally computer science.
+              </p>
+
+              <p>
+                Then came CSE, AI and Machine Learning — and suddenly there was
+                an entirely new world to understand.
+              </p>
+
+              <p>
+                I'm currently learning the foundations that make software work:
+                programming, problem solving, logic and development. Instead of
+                trying to know everything, I'm focused on becoming better one
+                step at a time.
+              </p>
+
+              <div class="quote">
+                "You don't need to start ahead. You just need to keep moving."
+              </div>
+            </article>
+
+            <aside class="about-side reveal">
+              <div>
+                <div class="mini-label">Current mindset</div>
+
+                <div class="big-number">0 → ∞</div>
+
+                <p class="about-side-text">
+                  Starting from zero doesn't mean staying there.
+                </p>
+              </div>
+
+              <div>
+                <div class="mini-label">Current direction</div>
+
+                <p class="about-side-text">
+                  CSE · AI/ML · Programming · Projects · Continuous learning
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             JOURNEY
+        ====================================================== -->
+
+      <section id="journey">
+        <div class="container">
+          <div class="section-title reveal">
+            <div class="eyebrow">02 / My journey</div>
+
+            <h2>From zero.</h2>
+
+            <p>Not a perfect straight line. Just progress.</p>
+          </div>
+
+          <div class="journey">
+            <div class="journey-line"></div>
+
+            <div class="journey-item reveal">
+              <span class="journey-dot"></span>
+
+              <div class="journey-year">CHAPTER 01</div>
+
+              <div class="journey-content">
+                <h3>The learning curve</h3>
+
+                <p>
+                  Coming from a non-CS background meant starting with concepts
+                  that many people already knew. I had to slow down, understand
+                  the basics and build my foundation properly.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item reveal">
+              <span class="journey-dot"></span>
+
+              <div class="journey-year">CHAPTER 02</div>
+
+              <div class="journey-content">
+                <h3>Enter CSE + AI/ML</h3>
+
+                <p>
+                  I stepped into Computer Science with Artificial Intelligence
+                  and Machine Learning as the direction I wanted to explore.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item reveal">
+              <span class="journey-dot"></span>
+
+              <div class="journey-year">CHAPTER 03</div>
+
+              <div class="journey-content">
+                <h3>Learning the fundamentals</h3>
+
+                <p>
+                  C, C++, Python and Java became part of the journey. The goal
+                  wasn't simply to finish lessons — it was to understand why the
+                  code works.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item reveal">
+              <span class="journey-dot"></span>
+
+              <div class="journey-year">CHAPTER 04</div>
+
+              <div class="journey-content">
+                <h3>Catching up & building</h3>
+
+                <p>
+                  When the workload started piling up, I stopped looking for
+                  shortcuts and started creating structure — small sessions,
+                  consistent practice and actually building things.
+                </p>
+              </div>
+            </div>
+
+            <div class="journey-item reveal">
+              <span class="journey-dot"></span>
+
+              <div class="journey-year">NEXT</div>
+
+              <div class="journey-content">
+                <h3>Build something real</h3>
+
+                <p>
+                  The next chapter is about turning the knowledge into projects,
+                  experiments and products that actually exist outside the
+                  classroom.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             SKILLS
+        ====================================================== -->
+
+      <section id="skills">
+        <div class="container">
+          <div class="section-title reveal">
+            <div class="eyebrow">03 / Skills</div>
+
+            <h2>Starting from 0%.</h2>
+
+            <p>
+              Every skill below intentionally starts at zero. This section
+              represents the journey I'm building, not a collection of numbers
+              pretending to be expertise.
+            </p>
+          </div>
+
+          <div class="skills-layout">
+            <div class="skill-intro reveal">
+              <div class="eyebrow">Current state</div>
+
+              <h3>Zero isn't the destination.</h3>
+
+              <p>
+                These ratings are currently set to 0% because I'm treating this
+                portfolio as the starting point of the journey.
+              </p>
+            </div>
+
+            <div class="skill-panel reveal">
+              <div class="skill-list">
+                <div class="skill-row">
+                  <div class="skill-name">C</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">C++</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">Python</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">Java</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">HTML / CSS</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">JavaScript</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">AI / ML</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+
+                <div class="skill-row">
+                  <div class="skill-name">Git / GitHub</div>
+
+                  <div class="skill-track">
+                    <div class="skill-progress" data-progress="0"></div>
+                  </div>
+
+                  <div class="skill-percent">0%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             PROJECTS
+        ====================================================== -->
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-title reveal">
+            <div class="eyebrow">04 / Projects</div>
+
+            <h2>Currently building.</h2>
+
+            <p>
+              A growing collection of experiments, ideas and future projects.
+            </p>
+          </div>
+
+          <div class="projects">
+            <article class="project reveal">
+              <span class="project-number"> 001 </span>
+
+              <h3>Portfolio</h3>
+
+              <p>
+                This website itself — designed as a personal space to document
+                the process of becoming a developer.
+              </p>
+
+              <div class="project-footer">
+                <span class="project-tag"> HTML · CSS · JS </span>
+
+                <a
+                  href="https://github.com/rakexhhh309/portfoilo_rakexh.git"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  View repo ↗
+                </a>
+              </div>
+            </article>
+
+            <article class="project reveal">
+              <span class="project-number"> 002 </span>
+
+              <h3>AI Experiments</h3>
+
+              <p>
+                A future collection of small AI and machine-learning experiments
+                created while learning the fundamentals.
+              </p>
+
+              <div class="project-footer">
+                <span class="project-tag"> AI · ML </span>
+
+                <span class="project-link"> Coming soon </span>
+              </div>
+            </article>
+
+            <article class="project reveal">
+              <span class="project-number"> 003 </span>
+
+              <h3>Build Log</h3>
+
+              <p>
+                A digital record of projects, lessons, mistakes, experiments and
+                everything learned along the way.
+              </p>
+
+              <div class="project-footer">
+                <span class="project-tag"> Learning </span>
+
+                <span class="project-link"> In progress </span>
+              </div>
+            </article>
+          </div>
+
+          <div class="github-box reveal">
+            <div>
+              <small> SOURCE / GITHUB </small>
+
+              <h3>github.com/rakexhhh309</h3>
+            </div>
+
+            <a
+              href="https://github.com/rakexhhh309/portfoilo_rakexh.git"
+              target="_blank"
+              rel="noopener"
+              class="github-btn"
+            >
+              Open GitHub ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+
+      <section id="contact">
+        <div class="container">
+          <div class="contact-box reveal">
+            <div class="eyebrow">05 / Contact</div>
+
+            <h2>Let's build what doesn't exist yet.</h2>
+
+            <p>
+              I'm at the beginning of the journey, but that's exactly what makes
+              it exciting. One idea, one project and one line of code at a time.
+            </p>
+
+            <div class="contact-actions">
+              <a
+                href="mailto:rockstar2008309@gmail.com"
+                class="btn btn-primary"
+              >
+                rockstar2008309@gmail.com ↗
+              </a>
+
+              <a
+                href="https://github.com/rakexhhh309/portfoilo_rakexh.git"
+                target="_blank"
+                rel="noopener"
+                class="btn"
+              >
+                GitHub ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+      <div class="container footer-inner">
+        <div>© 2026 Rakesh</div>
+
+        <div>Built from zero.</div>
+
+        <div>CSE · AI/ML · Learning</div>
+      </div>
+    </footer>
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+      /* =====================================================
+           CUSTOM CURSOR
+        ====================================================== */
+
+      const cursor = document.querySelector(".cursor");
+
+      const ring = document.querySelector(".cursor-ring");
+
+      let mouseX = 0;
+      let mouseY = 0;
+
+      let ringX = 0;
+      let ringY = 0;
+
+      document.addEventListener("mousemove", (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        cursor.style.left = mouseX + "px";
+
+        cursor.style.top = mouseY + "px";
+      });
+
+      function animateCursor() {
+        ringX += (mouseX - ringX) * 0.15;
+
+        ringY += (mouseY - ringY) * 0.15;
+
+        ring.style.left = ringX + "px";
+
+        ring.style.top = ringY + "px";
+
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      /* =====================================================
+           HOVER CURSOR
+        ====================================================== */
+
+      const interactiveElements = document.querySelectorAll(
+        "a, button, .project",
+      );
+
+      interactiveElements.forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+          ring.style.width = "58px";
+          ring.style.height = "58px";
+        });
+
+        element.addEventListener("mouseleave", () => {
+          ring.style.width = "38px";
+          ring.style.height = "38px";
+        });
+      });
+
+      /* =====================================================
+           SCROLL REVEAL
+        ====================================================== */
+
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.12,
+        },
+      );
+
+      revealElements.forEach((element) => {
+        revealObserver.observe(element);
+      });
+
+      /* =====================================================
+           SKILLS ANIMATION
+        ====================================================== */
+
+      const skillBars = document.querySelectorAll(".skill-progress");
+
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const progress = entry.target.dataset.progress;
+
+              entry.target.style.width = progress + "%";
+            }
+          });
+        },
+        {
+          threshold: 0.4,
+        },
+      );
+
+      skillBars.forEach((bar) => {
+        skillObserver.observe(bar);
+      });
+
+      /* =====================================================
+           SUBTLE PARALLAX
+        ====================================================== */
+
+      const heroCard = document.querySelector(".hero-card");
+
+      document.addEventListener("mousemove", (event) => {
+        const x = event.clientX / window.innerWidth - 0.5;
+
+        const y = event.clientY / window.innerHeight - 0.5;
+
+        heroCard.style.transform = `
+                    perspective(900px)
+                    rotateY(${x * 5}deg)
+                    rotateX(${y * -5}deg)
+                    `;
+      });
+
+      /* =====================================================
+           ACTIVE NAV LINK
+        ====================================================== */
+
+      const sections = document.querySelectorAll("section[id]");
+
+      const links = document.querySelectorAll(".nav-links a");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 180;
+
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        links.forEach((link) => {
+          link.style.color = "var(--muted)";
+
+          if (link.getAttribute("href") === "#" + current) {
+            link.style.color = "white";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
